@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      @font-face {
+        font-family: 'Burn the Witch';
+        src: url('./fonts/BurnTheWitch_personal_use_only.ttf') format('truetype');
+      }
+      text {
+        font-family: 'Burn the Witch', serif;
+        font-size: 72px;
+        fill: #84d4b4;
+        dominant-baseline: central;
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+  <rect width="100" height="100" rx="14" fill="#1c1430"/>
+  <text x="50" y="54">W</text>
+</svg>
