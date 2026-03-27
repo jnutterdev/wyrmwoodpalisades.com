@@ -418,20 +418,49 @@
     }
     footer .footer-icons a:hover { color: var(--accent-lt); }
 
+    /* ── Nav Toggle Button ── */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-glow);
+      color: var(--accent-lt);
+      font-size: 1.2rem;
+      padding: 0.4rem 0.75rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-toggle:hover {
+      color: var(--gold-lt);
+      border-color: var(--gold);
+    }
+
     /* ── Responsive ── */
     @media (max-width: 640px) {
       nav {
         padding: 1rem;
-        justify-content: center;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
       }
       .nav-logo { font-size: 0.9rem; }
-      nav ul { justify-content: center; gap: 1rem; }
+
+      .nav-toggle { display: block; }
+
+      #nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 0 0.5rem;
+        border-top: 1px solid var(--border);
+        margin-top: 0.75rem;
+      }
+      nav.nav-open #nav-links { display: flex; }
 
       .hero { padding: 4rem 1rem 3.5rem; min-height: 80vh; }
-      .hero-emblem { font-size: 3.5rem; }
 
       .about-inner { flex-direction: column; align-items: center; }
-      .about-icon-col { flex-direction: row; }
       .cards-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -439,17 +468,31 @@
 <body>
 
   <!-- ── Navigation ── -->
-  <nav>
+  <nav id="main-nav">
     <div class="nav-logo">
       Wyrmwood Palisades
     </div>
-    <ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <i class="fa-solid fa-skull"></i>
+    </button>
+    <ul id="nav-links">
       <li><a href="#" class="active">Home</a></li>
       <li><a href="#forthcoming">Blog</a></li>
       <li><a href="#forthcoming">Music</a></li>
       <li><a href="#forthcoming">Gaming</a></li>
     </ul>
   </nav>
+
+  <script>
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('main-nav');
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('nav-open');
+      const icon = toggle.querySelector('i');
+      icon.classList.toggle('fa-skull');
+      icon.classList.toggle('fa-skull-crossbones');
+    });
+  </script>
 
   <!-- ── Hero ── -->
   <div class="hero">
