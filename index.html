@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wyrmwood Palisades</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ── Variables ── */
+    :root {
+      --bg:          #0d1a0d;
+      --bg-mid:      #152015;
+      --bg-card:     #1a2a1a;
+      --border:      #2e4a2e;
+      --border-glow: #3d6b3d;
+      --text:        #e0cfa0;
+      --text-muted:  #a89870;
+      --accent:      #c97230;
+      --accent-lt:   #e08840;
+      --gold:        #c9a84c;
+      --gold-lt:     #e0c06a;
+    }
+
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Crimson Text', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* subtle parchment texture via repeating gradient */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(30,60,20,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(15,40,10,0.4) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Typography ── */
+    h1, h2, h3, .nav-logo {
+      font-family: 'Cinzel Decorative', 'Cinzel', serif;
+      letter-spacing: 0.05em;
+    }
+
+    h2 { font-family: 'Cinzel', serif; }
+
+    a {
+      color: var(--accent-lt);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    a:hover { color: var(--gold-lt); }
+
+    /* ── Ornamental Divider ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem auto;
+      max-width: 480px;
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to var(--dir, right), transparent, var(--gold));
+    }
+    .divider::before { --dir: right; }
+    .divider::after  { --dir: left;  }
+
+    /* ── Navigation ── */
+    nav {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13, 26, 13, 0.92);
+      backdrop-filter: blur(6px);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-shadow: 0 0 12px rgba(201,168,76,0.4);
+      white-space: nowrap;
+    }
+
+    .nav-logo .dragon-icon {
+      color: var(--accent);
+      margin-right: 0.4em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.75rem;
+      flex-wrap: wrap;
+    }
+
+    nav ul a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    nav ul a:hover,
+    nav ul a.active {
+      color: var(--gold-lt);
+    }
+
+    nav ul a .nav-icon {
+      margin-right: 0.35em;
+      font-size: 0.75rem;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 1.5rem 5rem;
+      min-height: 90vh;
+    }
+
+    .hero-emblem {
+      font-size: 5rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 30px rgba(201,114,48,0.5), 0 0 60px rgba(201,114,48,0.2);
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { text-shadow: 0 0 20px rgba(201,114,48,0.4), 0 0 50px rgba(201,114,48,0.15); }
+      50%       { text-shadow: 0 0 35px rgba(201,114,48,0.7), 0 0 80px rgba(201,114,48,0.3); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 7vw, 4.5rem);
+      font-weight: 900;
+      color: var(--gold);
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.6), 0 0 40px rgba(201,168,76,0.3);
+      line-height: 1.15;
+      max-width: 800px;
+    }
+
+    .hero-tagline {
+      margin-top: 1.25rem;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.75rem 2rem;
+      border-radius: 2px;
+      border: 1px solid;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent-lt);
+      color: var(--bg);
+      box-shadow: 0 0 16px rgba(201,114,48,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--accent-lt);
+      color: var(--bg);
+      box-shadow: 0 0 24px rgba(201,114,48,0.5);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: var(--border-glow);
+      color: var(--text);
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── Section Shared ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(201,168,76,0.25);
+    }
+
+    .section-header p {
+      margin-top: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+      font-size: 1.05rem;
+    }
+
+    /* ── About ── */
+    .about-inner {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .about-icon-col {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .about-icon-badge {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: var(--accent);
+      background: var(--bg-mid);
+      box-shadow: 0 0 20px rgba(201,168,76,0.15);
+    }
+
+    .about-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      font-family: 'Cinzel', serif;
+      text-align: center;
+    }
+
+    .stat-label { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.1em; }
+    .stat-value { color: var(--accent-lt); font-weight: 700; }
+
+    .about-text {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .about-text p + p { margin-top: 1rem; }
+
+    /* ── Coming Soon Cards ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      padding: 2rem 1.75rem;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--gold);
+      border-top-color: var(--gold);
+      box-shadow: 0 4px 30px rgba(201,168,76,0.1);
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      font-size: 2.2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border: 1px solid var(--border-glow);
+      color: var(--text-muted);
+    }
+
+    /* ── Horizontal Rule ── */
+    hr.fancy {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    footer .footer-logo {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    footer .footer-icons {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      margin: 1rem 0;
+      font-size: 1.2rem;
+    }
+
+    footer .footer-icons a {
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    footer .footer-icons a:hover { color: var(--gold-lt); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      nav {
+        padding: 1rem;
+        justify-content: center;
+      }
+      .nav-logo { font-size: 0.9rem; }
+      nav ul { justify-content: center; gap: 1rem; }
+
+      .hero { padding: 4rem 1rem 3.5rem; min-height: 80vh; }
+      .hero-emblem { font-size: 3.5rem; }
+
+      .about-inner { flex-direction: column; align-items: center; }
+      .about-icon-col { flex-direction: row; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ── -->
+  <nav>
+    <div class="nav-logo">
+      <i class="fa-solid fa-dragon dragon-icon"></i>Wyrmwood Palisades
+    </div>
+    <ul>
+      <li><a href="#" class="active"><i class="fa-solid fa-home nav-icon"></i>Home</a></li>
+      <li><a href="#forthcoming"><i class="fa-solid fa-scroll nav-icon"></i>Blog</a></li>
+      <li><a href="#forthcoming"><i class="fa-solid fa-music nav-icon"></i>Music</a></li>
+      <li><a href="#forthcoming"><i class="fa-solid fa-dice-d20 nav-icon"></i>Gaming</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <div class="hero">
+    <div class="hero-emblem">
+      <i class="fa-solid fa-dragon"></i>
+    </div>
+    <h1>Wyrmwood Palisades</h1>
+    <p class="hero-tagline">
+      A traveler's compendium of tales, music, and adventures beyond the veil.
+    </p>
+    <div class="hero-cta">
+      <a href="#about" class="btn btn-primary">Enter the Keep</a>
+      <a href="#forthcoming" class="btn btn-ghost">What Lies Ahead</a>
+    </div>
+  </div>
+
+  <hr class="fancy">
+
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="section-header">
+      <h2><i class="fa-solid fa-book-open" style="color:var(--accent);margin-right:.5em"></i>The Keeper's Tome</h2>
+      <p>An introduction to the wanderer behind these pages.</p>
+    </div>
+
+    <div class="divider"><i class="fa-solid fa-shield-halved"></i></div>
+
+    <div class="about-inner">
+      <div class="about-icon-col">
+        <div class="about-icon-badge">
+          <i class="fa-solid fa-hat-wizard"></i>
+        </div>
+        <div class="about-stats">
+          <span class="stat-label">Class</span>
+          <span class="stat-value">Wanderer</span>
+          <span class="stat-label">Alignment</span>
+          <span class="stat-value">Chaotic Good</span>
+          <span class="stat-label">Guild</span>
+          <span class="stat-value">The Palisades</span>
+        </div>
+      </div>
+      <div class="about-text">
+        <p>
+          Welcome, traveler. You have found your way to Wyrmwood Palisades — a corner of the
+          realm dedicated to the things that matter: stories told around candlelight, songs that
+          carry you through long roads, and games that demand strategy, luck, and a little
+          dragon fire.
+        </p>
+        <p>
+          This keep is still being built, stone by stone. The banners are being hung, the
+          torches lit. Soon these halls will hold chronicles, compositions, and campaign logs
+          for any who care to read them.
+        </p>
+        <p>
+          <em>Pull up a chair. The fire is warm and the night is long.</em>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="fancy">
+
+  <!-- ── Forthcoming ── -->
+  <section id="forthcoming">
+    <div class="section-header">
+      <h2><i class="fa-solid fa-map" style="color:var(--accent);margin-right:.5em"></i>Chapters Yet to Come</h2>
+      <p>The roads ahead — each wing of the keep under construction.</p>
+    </div>
+
+    <div class="divider"><i class="fa-solid fa-sword" style="font-size:0.9rem"></i></div>
+
+    <div class="cards-grid">
+
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-feather-pointed"></i></div>
+        <h3>The Chronicle</h3>
+        <p>
+          Essays, musings, and dispatches from the frontier. Written by the light of a
+          dying torch, for those who prefer their words unhurried.
+        </p>
+        <span class="badge"><i class="fa-solid fa-hourglass-half" style="margin-right:.4em"></i>Coming Soon</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-guitar"></i></div>
+        <h3>The Bard's Loft</h3>
+        <p>
+          Original compositions, playlists, and the music that scores the adventure.
+          From tavern ballads to battle hymns.
+        </p>
+        <span class="badge"><i class="fa-solid fa-hourglass-half" style="margin-right:.4em"></i>Coming Soon</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-dice-d20"></i></div>
+        <h3>The Campaign Table</h3>
+        <p>
+          Session notes, game reviews, and strategy guides. Currently rolling dice for
+          Dungeons &amp; Dragons and whatever else the guild demands.
+        </p>
+        <span class="badge"><i class="fa-solid fa-hourglass-half" style="margin-right:.4em"></i>Coming Soon</span>
+      </div>
+
+      <div class="card">
+        <div class="card-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+        <h3>The Library</h3>
+        <p>
+          Books read, worlds explored, tomes reviewed. A catalog of the written word
+          as seen through the eye of an adventurer.
+        </p>
+        <span class="badge"><i class="fa-solid fa-hourglass-half" style="margin-right:.4em"></i>Coming Soon</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-logo"><i class="fa-solid fa-dragon" style="color:var(--accent);margin-right:.4em"></i>Wyrmwood Palisades</div>
+    <div class="footer-icons">
+      <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="#" title="Mastodon"><i class="fa-brands fa-mastodon"></i></a>
+      <a href="#" title="RSS"><i class="fa-solid fa-rss"></i></a>
+    </div>
+    <p>Forged in the dark. &copy; <span id="year"></span> Wyrmwood Palisades.</p>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  </footer>
+
+</body>
+</html>
