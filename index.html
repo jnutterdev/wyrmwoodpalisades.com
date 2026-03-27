@@ -4,22 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wyrmwood Palisades</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Burn the Witch';
+      src: url('./fonts/BurnTheWitch_personal_use_only.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Ransite Medieval';
+      src: url('./fonts/RansiteMedieval_PERSONAL_USE_ONLY.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ── Variables ── */
     :root {
-      --bg:          #0d1a0d;
-      --bg-mid:      #152015;
-      --bg-card:     #1a2a1a;
-      --border:      #2e4a2e;
-      --border-glow: #3d6b3d;
-      --text:        #e0cfa0;
-      --text-muted:  #a89870;
-      --accent:      #c97230;
-      --accent-lt:   #e08840;
-      --gold:        #c9a84c;
-      --gold-lt:     #e0c06a;
+      --bg:          #1c1430;
+      --bg-mid:      #261c3e;
+      --bg-card:     #2e2248;
+      --border:      #4a3870;
+      --border-glow: #6850a0;
+      --text:        #b8e0cc;
+      --text-muted:  #8068a8;
+      --accent:      #62b898;
+      --accent-lt:   #84d4b4;
+      --gold:        #9888d0;
+      --gold-lt:     #c0aef8;
     }
 
     /* ── Reset & Base ── */
@@ -28,7 +44,8 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background-color: var(--bg);
+      background: linear-gradient(to bottom, var(--bg) 0%, #0a0614 100%);
+      background-attachment: fixed;
       color: var(--text);
       font-family: 'Crimson Text', Georgia, serif;
       font-size: 18px;
@@ -37,32 +54,35 @@
       overflow-x: hidden;
     }
 
-    /* subtle parchment texture via repeating gradient */
+    /* subtle depth via radial gradients */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background-image:
-        radial-gradient(ellipse at 20% 20%, rgba(30,60,20,0.35) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 80%, rgba(15,40,10,0.4) 0%, transparent 60%);
+        radial-gradient(ellipse at 20% 20%, rgba(80,40,120,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(40,20,80,0.5) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
     }
 
     /* ── Typography ── */
-    h1, h2, h3, .nav-logo {
-      font-family: 'Cinzel Decorative', 'Cinzel', serif;
-      letter-spacing: 0.05em;
+    h1 {
+      font-family: 'Burn the Witch', 'Cinzel', serif;
+      letter-spacing: 0.04em;
     }
 
-    h2 { font-family: 'Cinzel', serif; }
+    h2, h3, .nav-logo {
+      font-family: 'Ransite Medieval', 'Cinzel', serif;
+      letter-spacing: 0.05em;
+    }
 
     a {
       color: var(--accent-lt);
       text-decoration: none;
       transition: color 0.2s;
     }
-    a:hover { color: var(--gold-lt); }
+    a:hover { color: var(--accent-lt); }
 
     /* ── Ornamental Divider ── */
     .divider {
@@ -93,7 +113,7 @@
       justify-content: space-between;
       padding: 1.25rem 2rem;
       border-bottom: 1px solid var(--border);
-      background: rgba(13, 26, 13, 0.92);
+      background: rgba(28, 20, 48, 0.94);
       backdrop-filter: blur(6px);
       flex-wrap: wrap;
       gap: 0.75rem;
@@ -102,8 +122,8 @@
     .nav-logo {
       font-size: 1.1rem;
       font-weight: 700;
-      color: var(--gold);
-      text-shadow: 0 0 12px rgba(201,168,76,0.4);
+      color: var(--accent-lt);
+      text-shadow: 0 0 12px rgba(100,180,150,0.5);
       white-space: nowrap;
     }
 
@@ -131,7 +151,7 @@
 
     nav ul a:hover,
     nav ul a.active {
-      color: var(--gold-lt);
+      color: var(--accent-lt);
     }
 
     nav ul a .nav-icon {
@@ -154,24 +174,23 @@
 
     .hero-emblem {
       font-size: 5rem;
-      color: var(--accent);
+      color: var(--accent-lt);
       margin-bottom: 1.5rem;
-      text-shadow: 0 0 30px rgba(201,114,48,0.5), 0 0 60px rgba(201,114,48,0.2);
+      text-shadow: 0 0 30px rgba(100,185,155,0.6), 0 0 60px rgba(100,185,155,0.25);
       animation: pulse-glow 4s ease-in-out infinite;
     }
 
     @keyframes pulse-glow {
-      0%, 100% { text-shadow: 0 0 20px rgba(201,114,48,0.4), 0 0 50px rgba(201,114,48,0.15); }
-      50%       { text-shadow: 0 0 35px rgba(201,114,48,0.7), 0 0 80px rgba(201,114,48,0.3); }
+      0%, 100% { text-shadow: 0 0 20px rgba(100,185,155,0.5), 0 0 50px rgba(100,185,155,0.2); }
+      50%       { text-shadow: 0 0 40px rgba(100,185,155,0.8), 0 0 90px rgba(100,185,155,0.35); }
     }
 
     .hero h1 {
       font-size: clamp(2rem, 7vw, 4.5rem);
-      font-weight: 900;
-      color: var(--gold);
-      text-shadow: 2px 2px 0 rgba(0,0,0,0.6), 0 0 40px rgba(201,168,76,0.3);
-      line-height: 1.15;
-      max-width: 800px;
+      color: var(--accent-lt);
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.7), 0 0 50px rgba(100,185,155,0.4);
+      line-height: 1.25;
+      max-width: 860px;
     }
 
     .hero-tagline {
@@ -191,7 +210,7 @@
     }
 
     .btn {
-      font-family: 'Cinzel', serif;
+      font-family: 'Ransite Medieval', 'Cinzel', serif;
       font-size: 0.85rem;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -207,12 +226,12 @@
       background: var(--accent);
       border-color: var(--accent-lt);
       color: var(--bg);
-      box-shadow: 0 0 16px rgba(201,114,48,0.3);
+      box-shadow: 0 0 16px rgba(100,185,155,0.35);
     }
     .btn-primary:hover {
       background: var(--accent-lt);
       color: var(--bg);
-      box-shadow: 0 0 24px rgba(201,114,48,0.5);
+      box-shadow: 0 0 28px rgba(100,185,155,0.55);
     }
 
     .btn-ghost {
@@ -241,8 +260,8 @@
 
     .section-header h2 {
       font-size: clamp(1.4rem, 4vw, 2.2rem);
-      color: var(--gold);
-      text-shadow: 0 0 20px rgba(201,168,76,0.25);
+      color: var(--accent-lt);
+      text-shadow: 0 0 20px rgba(100,185,155,0.3);
     }
 
     .section-header p {
@@ -272,14 +291,14 @@
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      border: 2px solid var(--gold);
+      border: 2px solid var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2.5rem;
-      color: var(--accent);
+      color: var(--accent-lt);
       background: var(--bg-mid);
-      box-shadow: 0 0 20px rgba(201,168,76,0.15);
+      box-shadow: 0 0 20px rgba(100,185,155,0.2);
     }
 
     .about-stats {
@@ -287,7 +306,7 @@
       flex-direction: column;
       gap: 0.6rem;
       font-size: 0.85rem;
-      font-family: 'Cinzel', serif;
+      font-family: 'Ransite Medieval', 'Cinzel', serif;
       text-align: center;
     }
 
@@ -317,9 +336,9 @@
     }
 
     .card:hover {
-      border-color: var(--gold);
-      border-top-color: var(--gold);
-      box-shadow: 0 4px 30px rgba(201,168,76,0.1);
+      border-color: var(--accent-lt);
+      border-top-color: var(--accent-lt);
+      box-shadow: 0 4px 30px rgba(100,185,155,0.15);
       transform: translateY(-3px);
     }
 
@@ -330,9 +349,9 @@
     }
 
     .card h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: var(--gold);
+      font-family: 'Ransite Medieval', 'Cinzel', serif;
+      font-size: 1.2rem;
+      color: var(--accent-lt);
       margin-bottom: 0.6rem;
     }
 
@@ -345,7 +364,7 @@
     .badge {
       display: inline-block;
       margin-top: 1.25rem;
-      font-family: 'Cinzel', serif;
+      font-family: 'Ransite Medieval', 'Cinzel', serif;
       font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.15em;
@@ -376,9 +395,9 @@
     }
 
     footer .footer-logo {
-      font-family: 'Cinzel Decorative', serif;
+      font-family: 'Ransite Medieval', 'Cinzel', serif;
       font-size: 1rem;
-      color: var(--gold);
+      color: var(--accent-lt);
       margin-bottom: 0.5rem;
     }
 
@@ -394,7 +413,7 @@
       color: var(--text-muted);
       transition: color 0.2s;
     }
-    footer .footer-icons a:hover { color: var(--gold-lt); }
+    footer .footer-icons a:hover { color: var(--accent-lt); }
 
     /* ── Responsive ── */
     @media (max-width: 640px) {
@@ -419,7 +438,7 @@
   <!-- ── Navigation ── -->
   <nav>
     <div class="nav-logo">
-      <i class="fa-solid fa-dragon dragon-icon"></i>Wyrmwood Palisades
+      Wyrmwood Palisades
     </div>
     <ul>
       <li><a href="#" class="active"><i class="fa-solid fa-home nav-icon"></i>Home</a></li>
@@ -431,16 +450,13 @@
 
   <!-- ── Hero ── -->
   <div class="hero">
-    <div class="hero-emblem">
-      <i class="fa-solid fa-dragon"></i>
-    </div>
     <h1>Wyrmwood Palisades</h1>
     <p class="hero-tagline">
-      A traveler's compendium of tales, music, and adventures beyond the veil.
+      A grimoire of obsessions — dark music, doomed campaigns, and words drawn from the marrow of the night.
     </p>
     <div class="hero-cta">
-      <a href="#about" class="btn btn-primary">Enter the Keep</a>
-      <a href="#forthcoming" class="btn btn-ghost">What Lies Ahead</a>
+      <a href="#about" class="btn btn-primary">Enter the Dark</a>
+      <a href="#forthcoming" class="btn btn-ghost">What Festers Below</a>
     </div>
   </div>
 
@@ -450,7 +466,7 @@
   <section id="about">
     <div class="section-header">
       <h2><i class="fa-solid fa-book-open" style="color:var(--accent);margin-right:.5em"></i>The Keeper's Tome</h2>
-      <p>An introduction to the wanderer behind these pages.</p>
+      <p>What haunts the keeper of these pages.</p>
     </div>
 
     <div class="divider"><i class="fa-solid fa-shield-halved"></i></div>
@@ -471,18 +487,14 @@
       </div>
       <div class="about-text">
         <p>
-          Welcome, traveler. You have found your way to Wyrmwood Palisades — a corner of the
-          realm dedicated to the things that matter: stories told around candlelight, songs that
-          carry you through long roads, and games that demand strategy, luck, and a little
-          dragon fire.
+          You have wandered into Wyrmwood Palisades. There is no map back.
         </p>
         <p>
-          This keep is still being built, stone by stone. The banners are being hung, the
-          torches lit. Soon these halls will hold chronicles, compositions, and campaign logs
-          for any who care to read them.
+          These pages are a record of obsessions — music that bleeds through speakers at midnight,
+          campaigns that end in fire, books that leave a mark, and games that refuse to release their grip.
         </p>
         <p>
-          <em>Pull up a chair. The fire is warm and the night is long.</em>
+          <em>The keep is incomplete. It is always incomplete.</em>
         </p>
       </div>
     </div>
@@ -494,7 +506,7 @@
   <section id="forthcoming">
     <div class="section-header">
       <h2><i class="fa-solid fa-map" style="color:var(--accent);margin-right:.5em"></i>Chapters Yet to Come</h2>
-      <p>The roads ahead — each wing of the keep under construction.</p>
+      <p>What festers in the dark, slowly taking shape.</p>
     </div>
 
     <div class="divider"><i class="fa-solid fa-sword" style="font-size:0.9rem"></i></div>
@@ -505,8 +517,8 @@
         <div class="card-icon"><i class="fa-solid fa-feather-pointed"></i></div>
         <h3>The Chronicle</h3>
         <p>
-          Essays, musings, and dispatches from the frontier. Written by the light of a
-          dying torch, for those who prefer their words unhurried.
+          Long-form writing on the things that consume. Dispatches from the abyss —
+          written slowly, without apology.
         </p>
         <span class="badge"><i class="fa-solid fa-hourglass-half" style="margin-right:.4em"></i>Coming Soon</span>
       </div>
@@ -515,8 +527,8 @@
         <div class="card-icon"><i class="fa-solid fa-guitar"></i></div>
         <h3>The Bard's Loft</h3>
         <p>
-          Original compositions, playlists, and the music that scores the adventure.
-          From tavern ballads to battle hymns.
+          Original compositions and the music that scores the descent.
+          From cold black riffs to the strange and sacred.
         </p>
         <span class="badge"><i class="fa-solid fa-hourglass-half" style="margin-right:.4em"></i>Coming Soon</span>
       </div>
@@ -525,8 +537,8 @@
         <div class="card-icon"><i class="fa-solid fa-dice-d20"></i></div>
         <h3>The Campaign Table</h3>
         <p>
-          Session notes, game reviews, and strategy guides. Currently rolling dice for
-          Dungeons &amp; Dragons and whatever else the guild demands.
+          Session records and post-mortems from the table. Characters die here.
+          Sometimes the whole campaign does.
         </p>
         <span class="badge"><i class="fa-solid fa-hourglass-half" style="margin-right:.4em"></i>Coming Soon</span>
       </div>
@@ -535,8 +547,8 @@
         <div class="card-icon"><i class="fa-solid fa-book-bookmark"></i></div>
         <h3>The Library</h3>
         <p>
-          Books read, worlds explored, tomes reviewed. A catalog of the written word
-          as seen through the eye of an adventurer.
+          Tomes consumed and annotated. A record of the written word —
+          the ones that leave a scar.
         </p>
         <span class="badge"><i class="fa-solid fa-hourglass-half" style="margin-right:.4em"></i>Coming Soon</span>
       </div>
@@ -546,13 +558,13 @@
 
   <!-- ── Footer ── -->
   <footer>
-    <div class="footer-logo"><i class="fa-solid fa-dragon" style="color:var(--accent);margin-right:.4em"></i>Wyrmwood Palisades</div>
+    <div class="footer-logo">Wyrmwood Palisades</div>
     <div class="footer-icons">
       <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
       <a href="#" title="Mastodon"><i class="fa-brands fa-mastodon"></i></a>
       <a href="#" title="RSS"><i class="fa-solid fa-rss"></i></a>
     </div>
-    <p>Forged in the dark. &copy; <span id="year"></span> Wyrmwood Palisades.</p>
+    <p>Forged in the dark by <a href="https://jnutterdev.com">jnutterdev.com</a>. &copy; <span id="year"></span> Wyrmwood Palisades.</p>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
 
